@@ -18,7 +18,6 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
-	
 	String sql = "insert into member values(?, ?, ?, ?, ?, ?) ";
 	try{
 		Context init = new InitialContext();

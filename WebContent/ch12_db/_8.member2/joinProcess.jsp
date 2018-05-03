@@ -17,13 +17,26 @@
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
-	
+	ResultSet rs = null;
 	
 	String sql = "insert into member values(?, ?, ?, ?, ?, ?) ";
+	String sql_confirm = "select * from member where id = ?";
 	try{
 		Context init = new InitialContext();
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
+		
+		pstmt = conn.prepareStatement(sql_confirm);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			out.println("<script>");
+			out.println("alert('중복된 아이디 입니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+		}
+		rs.close();
+		pstmt.close();
 		
 		pstmt = conn.prepareStatement(sql);
 		

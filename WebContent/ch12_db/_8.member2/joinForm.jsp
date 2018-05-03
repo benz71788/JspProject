@@ -4,8 +4,21 @@
 <html>
 <head>
 <title>Insert title here</title>
+<script src="../../js/jquery-3.3.1.js"></script>
 <script>
-	
+	$(document).ready(function(){
+		$(".loginbtn").click(function(event){
+			location.href="loginForm.jsp";
+		});
+		
+		$('.submitbtn').click(function(event){
+			if($.isNumeric($('input[name=age]').val()) == false){
+				alert('나이는 숫자만 입력하세요');
+				$('input[name=age]').focus();
+				return false;
+			}
+		});
+	});
 </script>
 </head>
 <body>
@@ -30,8 +43,8 @@
 		<div class="clearfix">
 			<button type="submit" class="submitbtn">회원가입</button>
 			<button type="reset" class="cancelbtn">다시작성</button>
+			<button type="button" class="loginbtn">로그인</button>
 		</div>
-	</form><br><br>
-	<a href="loginForm.jsp">로그인 화면으로 이동하기</a>
+	</form>
 </body>
 </html>

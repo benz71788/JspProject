@@ -67,6 +67,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="../../js/jquery-3.3.1.js"></script>
+
 <script>
 	$(document).ready(function(){
 		var baseGender = '<%=baseGender %>';
@@ -84,7 +85,6 @@
 </script>
 </head>
 <body>
-
 	<form name="joinform" action="updateProcess.jsp"
 		method="post">
 		<h1>회원 수정 페이지</h1>

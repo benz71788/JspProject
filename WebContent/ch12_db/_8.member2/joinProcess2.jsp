@@ -4,23 +4,22 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="java.io.*" %>
-<%@ include file="header.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	String savedId = request.getParameter("id");
+	String savedName = (String)session.getAttribute("name");
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	String sid = "";
-	String spass = "";
-	String sname = "";
-	int sage = 0;
-	String sgender = "";
-	String semail = "";
+	String id = "";
+	String pass = "";
+	String name = "";
+	int age = 0;
+	String gender = "";
+	String email = "";
 	
-	String sql = "select * from member where id ='" + savedId + "'";
+	String sql = "select * from member where name='" + savedName + "'";
 	try{
 		Context init = new InitialContext();
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
@@ -29,12 +28,12 @@
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		while(rs.next()){
-			sid = rs.getString(1);
-			spass = rs.getString(2);
-			sname = rs.getString(3);
-			sage = rs.getInt(4);
-			sgender = rs.getString(5);
-			semail = rs.getString(6);
+			id = rs.getString(1);
+			pass = rs.getString(2);
+			name = rs.getString(3);
+			age = rs.getInt(4);
+			gender = rs.getString(5);
+			email = rs.getString(6);
 		}
 	} catch(Exception e){
 		e.printStackTrace();
@@ -66,13 +65,6 @@
 <html>
 <head>
 <title>Insert title here</title>
-	<style>
-		table{margin: 0 auto; width: 300px}
-		td:nth-child(2n){background: lightgreen}
-		td:nth-child(2n+1){background: orange}
-		td{text-align:center; height:30px; width:50px}
-	</style>
-	
 </head>
 <body>
 	<table border=1>
@@ -81,30 +73,30 @@
 		</tr>
 		<tr>
 			<td>아이디</td>
-			<td><%=sid %></td>
+			<td><%=id %></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><%=spass %></td>
+			<td><%=pass %></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><%=sname %></td>
+			<td><%=name %></td>
 		</tr>
 		<tr>
 			<td>나이</td>
-			<td><%=sage %></td>
+			<td><%=age %></td>
 		</tr>
 		<tr>
 			<td>성별</td>
-			<td><%=sgender %></td>
+			<td><%=gender %></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><%=semail %></td>
+			<td><%=email %></td>
 		</tr>
 		<tr>
-			<td colspan=2><a href="member_list.jsp">회원목록 가기</a></td>
+			<td colspan=2><a href="loginForm.jsp">로그인 바로 가기</a></td>
 		</tr>
 		
 	</table>
