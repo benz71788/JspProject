@@ -5,9 +5,8 @@
 <html>
 <head>
 <title>Insert title here</title>
-<script src="/JspProject/js/jquery-3.3.1.js"></script>
+<script src="../../js/jquery-3.3.1.js"></script>
 <script>
-	
 	$(document).ready(function(){
 		$('form').submit(function(event){
 			var id = $.trim($('input[name=id]').val());
@@ -26,14 +25,14 @@
 		});
 		
 		$('.join').click(function(){
-			location.href="join.net";
+			location.href="joinForm.jsp";
 		});
 		
 	});
 </script>
 </head>
 <body>
-	<form name="login" action="loginProcess.net" method="post">
+	<form name="login" action="loginprocess.jsp" method="post">
 		<h1>로그인</h1>
 		<hr>
 		<b>아이디</b>

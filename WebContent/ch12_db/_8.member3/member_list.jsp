@@ -4,44 +4,30 @@
 <%@ page import="javax.sql.*"%>
 <%@ page import="javax.naming.*"%>
 <%@ page import="java.io.*"%>
-<%
-	request.setCharacterEncoding("UTF-8");
 
-	String id = request.getParameter("id");
-	String pass = request.getParameter("pass");
-	
+<%@ include file="header.jsp" %>
+<%
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-
-	try {
+	String sql = "select id from member";
+	try{
 		Context init = new InitialContext();
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
-
-		pstmt = conn.prepareStatement("select * from member where id=?");
-		pstmt.setString(1, id);
-
+		
+		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
-		//해당 id가 DB에 있는 경우입니다
-		if(rs.next()){
-			if(pass.equals(rs.getString("password"))){ //입력한 비밀번호
-				session.setAttribute("id", id); //세션에 id를 저장합니다.
-				
-				//main.jsp로 이동합니다.
-				out.println("<script>");
-				out.println("alert('" + id + "님 로그인입니다.')");
-				out.println("location.href='main.jsp'");
-				out.println("</script>");
-			} else { //비밀번호가 틀린경우
-				out.println("<script>");
-				out.println("alert('비밀번호가 틀렸습니다.')");
-				out.println("location.href='login.net'");
-				out.println("id.focus()");
-				out.println("</script>");
-			}
+		out.println("<table border=1>");
+		out.println("<tr><td colspan=2>회원 목록</td></tr>");
+		while(rs.next()){
+			out.println("<tr>");
+			out.println("<td><a href='infomember.jsp?id=" + rs.getString(1) + "'>" + rs.getString(1) + "</a></td>");
+			out.println("<td><a href='deleteProcess.jsp?id=" + rs.getString(1)+ "'>삭제</a></td>");
+			out.println("</tr>");
 		}
+		out.println("</table>");
 	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
@@ -68,11 +54,13 @@
 		}
 	}
 %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+
 </body>
 </html>

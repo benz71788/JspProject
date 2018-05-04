@@ -37,7 +37,7 @@
 			} else { //비밀번호가 틀린경우
 				out.println("<script>");
 				out.println("alert('비밀번호가 틀렸습니다.')");
-				out.println("location.href='login.net'");
+				out.println("location.href='loginForm.jsp'");
 				out.println("id.focus()");
 				out.println("</script>");
 			}
